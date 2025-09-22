@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro Empleados</title>
+    <link rel="stylesheet" href="Stylos.css" />
+  </head>
+  <body class="alinear">
+    <div class="grid">
+      
+      <h1>REGISTRO</h1>
+      <form action="fromAltaEmpleados.php" method="post" class="form">
+        <div class="formField">
+          Usuario:<br />
+          <input
+            class="introducirTxt"
+            type="text"
+            name="mail"
+            placeholder="E-mail..."
+            maxlength="45"
+            required
+          /><br />
+        </div>
+        <div class="formField">
+          <input
+            class="introducirTxt"
+            type="text"
+            name="usuario"
+            placeholder="Nombre..."
+            required
+            maxlength="45"
+            pattern="[A-Za-z ÑñÁÉÍÓÚáéíóú0-9]"
+          />
+        </div>
+        <div class="formField">
+          <input
+            class="introducirTxt"
+            type="text"
+            name="apellido"
+            placeholder="Apellidos..."
+            required
+            maxlength="45"
+            pattern="[A-Za-z ÑñÁÉÍÓÚáéíóú0-9]"
+          />
+        </div>
+        <div class="formField">
+          Ingrese contraseña:<br />
+          <input
+            class="pass"
+            type="password"
+            name="clave1"
+            method="post"
+            placeholder="Contraseña..."
+            maxlength="45"
+          /><br />
+          <input
+            class="pass"
+            type="password"
+            name="clave2"
+            method="post"
+            placeholder="Repita la contraseña..."
+            maxlength="45"
+          />
+        </div>
+        <div class="formField">
+          <input type="submit" value="Registrar" class="button"/>
+          <p class="inicioSesion">Ya tengo una cuenta... <a href="loginEmpleados.html" >incia sesión aquí.</a></p>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

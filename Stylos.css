@@ -1,0 +1,65 @@
+.alinear {
+  margin-top: 10rem;
+  height: 100rem;
+  display: flex;
+  justify-content: center;
+  background: url("https://estaticos-cdn.prensaiberica.es/clip/d5a464ff-e265-49ff-96d2-41286d033007_source-aspect-ratio_default_0.jpg");
+  font-size: 28px;
+}
+.grid {
+  width: 400px;
+  height: 450px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(20, 19, 20, 0.205);
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+input {
+  cursor: pointer;
+  width: auto;
+}
+.formField {
+  margin-top: 2%;
+}
+.pass {
+  margin: inherit;
+}
+h1 {
+  font-size: larger;
+}
+.pass {
+  width: 390px;
+  height: 25px;
+}
+.introducirTxt {
+  width: 390px;
+  height: 25px;
+}
+.form {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.button {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  width: 80px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(20, 19, 20, 0.205);
+  color: aliceblue;
+  font-weight: bolder;
+}
+.inicioSesion {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  font-size: 16px;
+}
