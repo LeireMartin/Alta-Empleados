@@ -8,15 +8,15 @@
 </head>
 
 <body>
-    
+    <!-- Registrar apellido-->
 
     <?php
     $conexion = mysqli_connect("localhost:3307", "root", "", "2daw") or
         die("Problemas con la conexion");
 
-    $clave1 = $_REQUEST["clave1"];
-    $clave2 = $_REQUEST["clave2"];
-    $correo = $_REQUEST["mail"];
+    $clave1 = $_POST["clave1"];
+    $clave2 = $_POST["clave2"];
+    $correo = $_POST["mail"];
     try {
         #Comprueba correo
         $correoRegistrado = mysqli_query($conexion, query: "select * from usuarios where Usuario_email ='$correo'");
@@ -29,8 +29,10 @@
         if ($clave1 != $clave2) {
             throw new Exception("Las cotraseñas no coinciden");
         } else {
+            //HASHEAR CONTRASEÑA
+            $hash=password_hash($clave1,PASSWORD_DEFAULT);
             mysqli_query($conexion, "insert into usuarios(Usuario_email,Usuario_clave) values
-                    ('$_REQUEST[mail]','$_REQUEST[clave1]')")
+                    ('$correo','$hash')")
                 or die("Problema con la consulta..." . mysqli_error($conexion));
             echo "Usuario registrado";
         }
