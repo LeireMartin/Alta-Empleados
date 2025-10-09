@@ -6,23 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios</title>
     <style>
-        table{
+        table {
             border: 1px;
         }
     </style>
 </head>
-    <!-- Almenos 3 campos para filtrar-->
+<!-- Almenos 3 campos para filtrar-->
 
 <body>
     <?php
     session_start();
-    $nombre = $_POST["nombre"];
     $conexion = mysqli_connect("localhost:3307", "root", "", "2daw") or
         die("Problemas con la conexion");
-
-    $registros = mysqli_query($conexion, "select Usuario_id, Usuario_nombre, Usuario_email
-                        from usuarios where Usuario_nombre='$_REQUEST[nombre]'") or
-        die("Problemas en el select:" . mysqli_error($conexion));
+    $nombre = $_POST["nombre"];
+    $bloqueado = isset($_POST['bloqueado']) ? 1 : 0;
+    if ($bloqueado == 1) {
+        $registros = mysqli_query($conexion, "select Usuario_id, Usuario_nombre, Usuario_email
+                        from usuarios where Usuario_nombre LIKE '%$nombre%' and Usuario_bloqueado=1") or
+            die("Problemas en el select:" . mysqli_error($conexion));
+    } else {
+        $registros = mysqli_query($conexion, "select Usuario_id, Usuario_nombre, Usuario_email
+                        from usuarios where Usuario_nombre LIKE '%$_REQUEST[nombre]%'") or
+            die("Problemas en el select:" . mysqli_error($conexion));
+    }
 
     if ($nombre === '') {
         $registros = mysqli_query($conexion, "select Usuario_id, Usuario_email, Usuario_nombre
