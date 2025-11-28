@@ -1,9 +1,8 @@
 .alinear {
   margin-top: 10rem;
-  height: 100rem;
   display: flex;
   justify-content: center;
-  background: url("https://estaticos-cdn.prensaiberica.es/clip/d5a464ff-e265-49ff-96d2-41286d033007_source-aspect-ratio_default_0.jpg");
+  background-image: url("https://estaticos-cdn.prensaiberica.es/clip/d5a464ff-e265-49ff-96d2-41286d033007_source-aspect-ratio_default_0.jpg");
   font-size: 28px;
 }
 .grid {

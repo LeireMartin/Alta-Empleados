@@ -18,6 +18,7 @@
     $clave2 = $_POST["clave2"];
     $correo = $_POST["mail"];
     try {
+
         #Comprueba correo
         $correoRegistrado = mysqli_query($conexion, query: "select * from usuarios where Usuario_email ='$correo'");
         $fila = mysqli_fetch_row($correoRegistrado);
@@ -25,6 +26,8 @@
 
             throw new Exception("Usuario ya registrado");
         }
+
+        
         #Comprueba clave
         if ($clave1 != $clave2) {
             throw new Exception("Las cotraseñas no coinciden");

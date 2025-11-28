@@ -11,7 +11,7 @@
         }
     </style>
 </head>
-<!-- Almenos 3 campos para filtrar-->
+
 
 <body>
     <?php
