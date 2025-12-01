@@ -18,37 +18,42 @@
     session_start();
     $conexion = mysqli_connect("localhost:3307", "root", "", "2daw") or
         die("Problemas con la conexion");
-    $nombre = $_POST["nombre"];
-    $bloqueado = isset($_POST['bloqueado']) ? 1 : 0;
-    if ($bloqueado == 1) {
-        $registros = mysqli_query($conexion, "select Usuario_id, Usuario_nombre, Usuario_email
-                        from usuarios where Usuario_nombre LIKE '%$nombre%' and Usuario_bloqueado=1") or
-            die("Problemas en el select:" . mysqli_error($conexion));
-    } else {
-        $registros = mysqli_query($conexion, "select Usuario_id, Usuario_nombre, Usuario_email
-                        from usuarios where Usuario_nombre LIKE '%$_REQUEST[nombre]%'") or
-            die("Problemas en el select:" . mysqli_error($conexion));
-    }
+     $getNombre = isset($_GET['nombre']) ? trim($_GET['nombre']) : '';
+    $getPerfil = $_GET['perfil'] !== "Todos" ? trim($_GET['perfil']) : '';
 
-    if ($nombre === '') {
-        $registros = mysqli_query($conexion, "select Usuario_id, Usuario_email, Usuario_nombre
-                        from usuarios") or
-            die("Problemas en el select:" . mysqli_error($conexion));
+    $sql = "SELECT Usuario_id, Usuario_email, Usuario_nombre, Usuario_bloqueado, Usuario_perfil from usuarios ";
+        $arr = array();if ($getNombre != '') {
+            $arr[] = " Usuario_nombre LIKE '%$getNombre%'";
+        }
+
+        if ($getPerfil != '') {
+            $arr[] = "Usuario_perfil = '$getPerfil'";
+        }
+
+        if(count($arr) > 0){
+            $sql .= 'WHERE '.implode(' AND ', $arr).";";
+        }
+
+        $registros = mysqli_query($conn, $sql);
+
+
 
         while ($reg = mysqli_fetch_array($registros)) {
-            echo "<table> <tr></tr>";
-            echo "<td>Nombre: " . $reg['Usuario_nombre'] . "</td>";
-            echo "<td>Mail:   " . $reg['Usuario_email'] . "</td>";
-            echo "</tr></table>";
-        }
-    } elseif ($reg = mysqli_fetch_array($registros)) {
-        echo "Mail:" . $reg['Usuario_email'] . "<br>";
-        echo "Nombre:" . $reg['Usuario_nombre'] . "<br>";
-    } else {
-        echo "No existe un usuario con ese nombre.";
-    }
-    mysqli_close($conexion);
-    ?>
+            $bloqueado = $reg["Usuario_bloqueado"];
+            $perfil = $reg["Usuario_perfil"];
+            $id = $reg["Usuario_id"];
+            if($perfil == 0) $perfil = "usuario";
+            ?>
+            <tr><td><?=$id?></td><td><?=$reg["Usuario_nombre"]?></td>
+            <td><?=$reg["Usuario_email"]?></td>
+            <td><?=$perfil?></td>
+            <td><a href="#"><button class="boton-tabla">MODIFICAR</button></a></td>
+            <td><a href="eliminar.php?id=<?=$id?>&perfil=<?=$getPerfil?>&nombre=<?=$getNombre?>">ELIMINAR</a></td>
+            <td><input type="checkbox" name="ids[]" value="<?=$id?>"></td>
+            <td><a href="bloquear.php?id=<?=$id?>&perfil=<?=$getPerfil?>&nombre=<?=$getNombre?>"><?=($bloqueado == 1) ? 'desbloquear':'bloquear'?></a></td>
+        </tr>
+            
+            <?php } ?>
 </body>
 
 </html>
